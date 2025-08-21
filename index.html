@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Contador Regressivo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f2027;  /* fundo gradiente escuro */
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+    }
+
+    .contador {
+      font-size: 3em;
+      margin-top: 20px;
+    }
+
+    .tempo {
+      display: inline-block;
+      margin: 0 15px;
+    }
+
+    .tempo span {
+      display: block;
+      font-size: 0.5em;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Contagem Regressiva para 19 de Setembro às 23:59</h1>
+  <div class="contador" id="contador">
+    <div class="tempo" id="dias">0<span>Dias</span></div>
+    <div class="tempo" id="horas">0<span>Horas</span></div>
+    <div class="tempo" id="minutos">0<span>Minutos</span></div>
+    <div class="tempo" id="segundos">0<span>Segundos</span></div>
+  </div>
+
+  <script>
+    function atualizarContador() {
+      const destino = new Date("2025-09-19T23:59:00");
+      const agora = new Date();
+      const diferenca = destino - agora;
+
+      if (diferenca <= 0) {
+        document.getElementById("contador").innerHTML = "Tempo esgotado!";
+        return;
+      }
+
+      const segundos = Math.floor((diferenca / 1000) % 60);
+      const minutos = Math.floor((diferenca / 1000 / 60) % 60);
+      const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+
+      document.getElementById("dias").innerHTML = `${dias}<span>Dias</span>`;
+      document.getElementById("horas").innerHTML = `${horas}<span>Horas</span>`;
+      document.getElementById("minutos").innerHTML = `${minutos}<span>Minutos</span>`;
+      document.getElementById("segundos").innerHTML = `${segundos}<span>Segundos</span>`;
+    }
+
+    // Atualiza o contador a cada segundo
+    setInterval(atualizarContador, 1000);
+    atualizarContador(); // Atualiza imediatamente na carga da página
+  </script>
+
+</body>
+</html>
